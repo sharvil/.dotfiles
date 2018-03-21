@@ -22,7 +22,10 @@ export MINICOM="-o -c on"
 export PS1="\[\033[01;32m\]\u@\h \[\033[01;34m\]\W \$ \[\033[00m\]"
 export EDITOR='vim'
 export VISUAL='vim'
-export GREP_OPTIONS='--color=always'
+
+# Python is the worst.
+export PYTHONDONTWRITEBYTECODE=1
+alias python='python -B'
 
 # Set up colors for `man` and other utilities that use termcap.
 export LESS_TERMCAP_mb=$(printf "\e[1;32m")
@@ -37,7 +40,7 @@ if [ -e ${HOME}/Library/Android/sdk/platform-tools/adb ]; then
   export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
 fi
 
-alias f='find . -iname'
+alias grep='grep --color=always'
 
 if command -v nvim 2>&1 > /dev/null; then
   alias vim='nvim'

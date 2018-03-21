@@ -1,3 +1,5 @@
 [user]
 	name = Sharvil Nanavati
 	email = sharvil.nanavati@gmail.com
+[push]
+	default = simple

@@ -54,6 +54,12 @@ if [ -e ${HOME}/Library/Android/sdk/platform-tools/adb ]; then
 fi
 
 alias grep='grep --color=always'
+alias ll='ls -lhA'
+alias ps='ps aux'
+
+if command -v htop 2>&1 > /dev/null; then
+  alias top='htop'
+fi
 
 if command -v nvim 2>&1 > /dev/null; then
   alias vim='nvim'

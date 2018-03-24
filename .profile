@@ -16,10 +16,23 @@ else
   CORES=0
 fi
 
+case $(hostname -s) in
+  arrakis)
+    PS1="\[\033[38;2;204;173;96m\]\h \[\033[38;2;81;101;114m\]\W \$ \[\033[00m\]" ;;
+  caladan)
+    PS1="\[\033[38;2;1;255;7m\]\h \[\033[38;2;81;101;114m\]\W \$ \[\033[00m\]" ;;
+  kaitain)
+    PS1="\[\033[38;2;191;119;246m\]\h \[\033[38;2;81;101;114m\]\W \$ \[\033[00m\]" ;;
+  rpi*)
+    PS1="\[\033[38;2;225;119;1m\]\h \[\033[38;2;81;101;114m\]\W \$ \[\033[00m\]" ;;
+  *)
+    PS1="\[\033[01;32m\]\u@\h \[\033[01;34m\]\W \$ \[\033[00m\]" ;;
+esac
+
+export PS1
 export CLICOLOR=1
 export MAKEFLAGS="-j$((${CORES} + 1))"
 export MINICOM="-o -c on"
-export PS1="\[\033[01;32m\]\u@\h \[\033[01;34m\]\W \$ \[\033[00m\]"
 export EDITOR='vim'
 export VISUAL='vim'
 

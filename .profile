@@ -10,7 +10,7 @@ OS=$(uname)
 if [ ${OS}  == "Linux" ]; then
   # Tuning Intel MKL according to the Tensorflow Performance Guide
   export KMP_BLOCKTIME=0
-  export KMP_AFFINITY=granularity=fine,verbose,compact,1,0
+  export KMP_AFFINITY=granularity=fine,compact,1,0
   CORES=$(grep -c ^processor /proc/cpuinfo)
 elif [ ${OS} == "Darwin" ]; then
   CORES=$(sysctl -n hw.ncpu)

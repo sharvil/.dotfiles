@@ -19,6 +19,22 @@ else
   CORES=0
 fi
 
+function gpu {
+  if [ $# -lt 1 ]; then
+    if [[ -z ${CUDA_VISIBLE_DEVICES} && ! -z ${CUDA_VISIBLE_DEVICES+none} ]]; then
+      echo "none"
+    else
+      echo ${CUDA_VISIBLE_DEVICES}
+    fi
+  elif [ "$1" == "none" ]; then
+    export CUDA_VISIBLE_DEVICES=""
+  elif [ "$1" == "clear" ]; then
+    unset CUDA_VISIBLE_DEVICES
+  else
+    export CUDA_VISIBLE_DEVICES="$*"
+  fi
+}
+
 HOST=$(hostname -s)
 case $HOST in
   arrakis)
@@ -54,12 +70,19 @@ export LESS_TERMCAP_so=$(printf "\e[1;44;33m")
 export LESS_TERMCAP_ue=$(printf "\e[0m")
 export LESS_TERMCAP_us=$(printf "\e[1;32m")
 
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 if [ -e ${HOME}/bin ]; then
   export PATH="$PATH:$HOME/bin"
 fi
 
 if [ -e ${HOME}/Library/Android/sdk/platform-tools/adb ]; then
   export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
+fi
+
+if [ -e ${HOME}/.virtualenv/tensorflow/bin/activate ]; then
+  # Default to Tensorflow environment
+  source ${HOME}/.virtualenv/tensorflow/bin/activate
 fi
 
 alias grep='grep --color=always'

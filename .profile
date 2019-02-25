@@ -19,7 +19,8 @@ else
   CORES=0
 fi
 
-case $(hostname -s) in
+HOST=$(hostname -s)
+case $HOST in
   arrakis)
     PS1="\[\033[38;2;204;173;96m\]\h \[\033[38;2;81;101;114m\]\W \$ \[\033[00m\]" ;;
   caladan)
@@ -42,6 +43,7 @@ export VISUAL='vim'
 # Python is the worst.
 export PYTHONDONTWRITEBYTECODE=1
 alias python='python -B'
+export PYTHONPATH="$HOME/Dropbox/dev/experimental/snrrrub/python:$PYTHONPATH"
 
 # Set up colors for `man` and other utilities that use termcap.
 export LESS_TERMCAP_mb=$(printf "\e[1;32m")
@@ -51,6 +53,10 @@ export LESS_TERMCAP_se=$(printf "\e[0m")
 export LESS_TERMCAP_so=$(printf "\e[1;44;33m")
 export LESS_TERMCAP_ue=$(printf "\e[0m")
 export LESS_TERMCAP_us=$(printf "\e[1;32m")
+
+if [ -e ${HOME}/bin ]; then
+  export PATH="$PATH:$HOME/bin"
+fi
 
 if [ -e ${HOME}/Library/Android/sdk/platform-tools/adb ]; then
   export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
@@ -66,4 +72,12 @@ fi
 
 if command -v nvim 2>&1 > /dev/null; then
   alias vim='nvim'
+fi
+
+if [ -e "${HOME}/.profile.${HOST}" ]; then
+  source "${HOME}/.profile.${HOST}"
+fi
+
+if [ -e "${HOME}/.profile.local" ]; then
+  source "${HOME}/.profile.local"
 fi

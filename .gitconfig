@@ -3,3 +3,5 @@
 	email = sharvil.nanavati@gmail.com
 [push]
 	default = simple
+[log]
+	decorate = short

@@ -59,7 +59,6 @@ export VISUAL='vim'
 # Python is the worst.
 export PYTHONDONTWRITEBYTECODE=1
 alias python='python -B'
-export PYTHONPATH="$HOME/Dropbox/dev/experimental/snrrrub/python:$PYTHONPATH"
 
 # Set up colors for `man` and other utilities that use termcap.
 export LESS_TERMCAP_mb=$(printf "\e[1;32m")
@@ -70,7 +69,11 @@ export LESS_TERMCAP_so=$(printf "\e[1;44;33m")
 export LESS_TERMCAP_ue=$(printf "\e[0m")
 export LESS_TERMCAP_us=$(printf "\e[1;32m")
 
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.config/gcloud/credentials.json"
 
 if [ -e ${HOME}/bin ]; then
   export PATH="$PATH:$HOME/bin"
@@ -85,9 +88,14 @@ if [ -e ${HOME}/.virtualenv/tensorflow/bin/activate ]; then
   source ${HOME}/.virtualenv/tensorflow/bin/activate
 fi
 
+alias m=make
+alias amke=make
+alias mkae=make
+alias maek=make
 alias grep='grep --color=always'
 alias ll='ls -lhA'
 alias ps='ps aux'
+alias nvidia-smi='watch -n .2 nvidia-smi'
 
 if command -v htop 2>&1 > /dev/null; then
   alias top='htop'

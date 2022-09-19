@@ -8,9 +8,6 @@ fi
 
 OS=$(uname)
 if [ ${OS}  == "Linux" ]; then
-  # Tuning Intel MKL according to the Tensorflow Performance Guide
-  export KMP_BLOCKTIME=0
-  export KMP_AFFINITY=granularity=fine,compact,1,0
   CORES=$(grep -c ^processor /proc/cpuinfo)
 elif [ ${OS} == "Darwin" ]; then
   CORES=$(sysctl -n hw.ncpu)
@@ -74,18 +71,18 @@ export LC_ALL=en_US.UTF-8
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.config/gcloud/credentials.json"
+export TF_CPP_MIN_LOG_LEVEL=4  # TensorFlow is such a joke.
 
 if [ -e ${HOME}/bin ]; then
   export PATH="$PATH:$HOME/bin"
 fi
 
-if [ -e ${HOME}/Library/Android/sdk/platform-tools/adb ]; then
-  export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
+if [ -e ${HOME}/.local/bin ]; then
+  export PATH="$PATH:$HOME/.local/bin"
 fi
 
-if [ -e ${HOME}/.virtualenv/tensorflow/bin/activate ]; then
-  # Default to Tensorflow environment
-  source ${HOME}/.virtualenv/tensorflow/bin/activate
+if [ -e ${HOME}/Library/Android/sdk/platform-tools/adb ]; then
+  export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
 fi
 
 alias m=make
@@ -93,7 +90,7 @@ alias amke=make
 alias mkae=make
 alias maek=make
 alias grep='grep --color=always'
-alias ll='ls -lhA'
+alias ll='ls -lhAv'
 alias ps='ps aux'
 alias nvidia-smi='watch -n .2 nvidia-smi'
 
